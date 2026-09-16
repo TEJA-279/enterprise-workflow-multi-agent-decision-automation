@@ -7,7 +7,7 @@ const STORAGE_KEYS = {
 const API_URL = window.WORKFLOW_API_URL || (
     window.location.port === "5500"
         ? "http://127.0.0.1:8000/workflow"
-        : "https://enterprise-workflow-multi-agent-decision.onrender.com"
+        : "https://enterprise-workflow-multi-agent-decision.onrender.com/workflow"
 );
 
 const authModal = document.getElementById("authModal");
