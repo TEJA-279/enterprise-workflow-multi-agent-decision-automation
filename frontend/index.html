@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Workflow</title>
+    <link rel="stylesheet" href="style.css?v=7">
+</head>
+
+<body>
+    <div class="app-background"></div>
+
+    <div id="authModal" class="auth-modal hidden">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="brand-mark">AI</div>
+                <button type="button" id="closeAuthModal" class="close-btn" aria-label="Close">×</button>
+            </div>
+
+            <h1 id="authTitle">Welcome back</h1>
+            <p id="authSubtitle">Sign in to access your enterprise workflow dashboard.</p>
+
+            <div class="demo-box">
+                Demo account: <strong>admin</strong> / <strong>admin123</strong>
+            </div>
+
+            <div class="auth-toggle" aria-label="Authentication mode switcher">
+                <button type="button" id="showLoginTab" class="auth-tab active">Login</button>
+                <button type="button" id="showRegisterTab" class="auth-tab">Register</button>
+            </div>
+
+            <form id="loginForm" class="auth-form">
+                <label for="loginUsername">Username</label>
+                <input id="loginUsername" name="username" type="text" placeholder="Enter username" required>
+
+                <label for="loginPassword">Password</label>
+                <input id="loginPassword" name="password" type="password" placeholder="Enter password" required>
+
+                <button type="submit" class="primary-btn">Login</button>
+            </form>
+
+            <form id="registerForm" class="auth-form hidden">
+                <label for="registerUsername">Username</label>
+                <input id="registerUsername" name="username" type="text" placeholder="Choose a username" required>
+
+                <label for="registerPassword">Password</label>
+                <input id="registerPassword" name="password" type="password" placeholder="Create a password" required>
+
+                <label for="registerConfirmPassword">Confirm password</label>
+                <input id="registerConfirmPassword" name="confirmPassword" type="password" placeholder="Confirm password" required>
+
+                <button type="submit" class="primary-btn">Create account</button>
+            </form>
+
+            <div id="authError" class="auth-error hidden"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <div class="brand">
+                <div class="logo">AI</div>
+                <div>
+                    <p>Enterprise Workflow Console</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <div class="status">
+                    <span class="status-dot"></span>
+                    <span>System Online</span>
+                </div>
+                <button id="openAuthModal" type="button" class="ghost-btn">Sign in</button>
+                <button id="logoutButton" type="button" class="ghost-btn hidden">Logout</button>
+            </div>
+        </header>
+
+        <main class="workspace-layout">
+            <section class="main-panel">
+                <div class="card input-card">
+                    <div class="card-title">
+                        <div>
+                            <span class="section-label">AI REQUEST</span>
+                            <h2>Ask the AI System</h2>
+                        </div>
+                        <div id="userBadge" class="user-badge">Guest</div>
+                    </div>
+
+                    <p class="description">
+                        Describe the task or question you want the workflow engine to evaluate.
+                    </p>
+
+                    <label for="message">Your Request</label>
+                    <textarea id="message" placeholder="Example: Review the market opportunity for a new SaaS expansion plan." maxlength="2000"></textarea>
+
+                    <div class="input-footer">
+                        <span>Press Ctrl + Enter to run the workflow.</span>
+                        <span id="characterCount">0 / 2000</span>
+                    </div>
+
+                    <button id="submitButton" type="button" class="primary-btn">
+                        <span class="button-icon">✦</span>
+                        <span id="buttonText">Run Analysis</span>
+                    </button>
+                </div>
+
+                <section class="workflow-card" id="workflowPhasePanel">
+                    <div class="workflow-step" id="stepPlanning" data-phase="planning">
+                        <div class="step-number">1</div>
+                        <div>
+                            <strong>Planning</strong>
+                            <span>Understand request</span>
+                        </div>
+                    </div>
+
+                    <div class="workflow-line"></div>
+
+                    <div class="workflow-step" id="stepResearch" data-phase="research">
+                        <div class="step-number">2</div>
+                        <div>
+                            <strong>Research</strong>
+                            <span>Gather information</span>
+                        </div>
+                    </div>
+
+                    <div class="workflow-line"></div>
+
+                    <div class="workflow-step" id="stepAnalysis" data-phase="analysis">
+                        <div class="step-number">3</div>
+                        <div>
+                            <strong>Analysis</strong>
+                            <span>Evaluate findings</span>
+                        </div>
+                    </div>
+
+                    <div class="workflow-line"></div>
+
+                    <div class="workflow-step" id="stepDecision" data-phase="decision">
+                        <div class="step-number">4</div>
+                        <div>
+                            <strong>Decision</strong>
+                            <span>Generate response</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card response-card">
+                    <div class="response-header">
+                        <div>
+                            <span class="section-label">AI OUTPUT</span>
+                            <h2>Response</h2>
+                        </div>
+                        <div id="sessionInfo" class="session-badge">Session: Not started</div>
+                    </div>
+
+                    <div id="loading" class="loading hidden">
+                        <div class="spinner"></div>
+                        <h3>Processing your request</h3>
+                        <p>Planning, researching, analyzing, and generating a response...</p>
+                    </div>
+
+                    <div id="responseContainer" class="response-container">
+                        <div class="empty-state">
+                            <div class="empty-icon">✦</div>
+                            <p>Your AI response will appear here.</p>
+                            <span>Run a request to see the analyzed result.</span>
+                        </div>
+                    </div>
+
+                    <div id="errorContainer" class="error-container hidden"></div>
+                </section>
+
+            </section>
+
+            <aside class="history-panel">
+                <div class="history-header">
+                    <div>
+                        <span class="section-label">PRIVATE SPACE</span>
+                        <h3>History</h3>
+                    </div>
+                    <button id="clearHistoryButton" type="button" class="secondary-btn">Clear</button>
+                </div>
+                <div id="historyList" class="history-list"></div>
+            </aside>
+        </main>
+    </div>
+
+    <script src="script.js?v=5"></script>
+</body>
+
+</html>
