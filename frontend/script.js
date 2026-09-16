@@ -7,7 +7,7 @@ const STORAGE_KEYS = {
 const API_URL = window.WORKFLOW_API_URL || (
     window.location.port === "5500"
         ? "http://127.0.0.1:8000/workflow"
-        : "/api/workflow"
+        : "https://enterprise-workflow-multi-agent-decision.onrender.com"
 );
 
 const authModal = document.getElementById("authModal");
@@ -358,7 +358,13 @@ async function runWorkflow() {
             })
         });
 
-        const data = await response.json();
+        const responseText = await response.text();
+        let data;
+        try {
+            data = JSON.parse(responseText);
+        } catch (parseError) {
+            throw new Error("The deployed API returned an invalid response. Please redeploy the frontend and check the Render URL.");
+        }
         if (!response.ok) {
             throw new Error(data.detail || "Backend request failed.");
         }
