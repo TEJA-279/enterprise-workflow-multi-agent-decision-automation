@@ -4,10 +4,13 @@ const STORAGE_KEYS = {
     history: "ai_workflow_history_"
 };
 
+const LOCAL_BACKEND = "http://127.0.0.1:8000/workflow";
+const DEPLOYED_BACKEND = "https://enterprise-workflow-multi-agent-decision.onrender.com/workflow";
+
 const API_URL = window.WORKFLOW_API_URL || (
-    window.location.port === "5500"
-        ? "http://127.0.0.1:8000/workflow"
-        : "https://enterprise-workflow-multi-agent-decision.onrender.com/workflow"
+    ["localhost", "127.0.0.1"].includes(window.location.hostname)
+        ? LOCAL_BACKEND
+        : DEPLOYED_BACKEND
 );
 
 const authModal = document.getElementById("authModal");
