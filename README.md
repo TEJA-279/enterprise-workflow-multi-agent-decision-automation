@@ -25,6 +25,12 @@ session memory.
 - REST integration for enterprise applications.
 - A deployable workflow automation platform with operational visibility.
 
+### Live deployment
+
+- Frontend: https://enterprise-workflow-multi-agent-dec-phi.vercel.app/
+- Backend API: https://enterprise-workflow-multi-agent-decision-6mqd.onrender.com/
+- Workflow endpoint: https://enterprise-workflow-multi-agent-decision-6mqd.onrender.com/workflow
+
 ### Run locally
 
 Start the API:
